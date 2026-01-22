@@ -70,10 +70,6 @@ public class FacilityTester {
 			largeFacility.addPatient(new CurrentPatient(firstNamesArray[i], lastNamesArray[i], uHIDArray[i], physician,datesArray[i]));
 		}
 
-		// Extend this tester to add more tests for the facilities above,
-		// as well as to create and test larger facilities.
-		// (HINT: For a larger facility, use the helpers at the end of this file to
-		// generate names, IDs, and dates.)
 	}
 
 	// Empty Facility tests --------------------------------------------------------
