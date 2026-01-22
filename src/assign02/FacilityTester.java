@@ -44,15 +44,14 @@ public class FacilityTester {
 
 		smallFacility = new Facility();
 		smallFacility.addAll(readFromFile("src/assign02/small_patient_list.txt"));
-		
+
 		largeFacility = new Facility();
 		UHealthID[] uHIDArray = generateUHIDs(50);
 		GregorianCalendar[] datesArray = generateDates(50);
 		String[] firstNamesArray = generateNames(50);
 		String[] lastNamesArray = generateNames(50);
-		int[] physicianArray = {0000000, 1111111, 2222222, 3333333, 4444444};
-		
-		
+		int[] physicianArray = { 0000000, 1111111, 2222222, 3333333, 4444444 };
+
 		for (int i = 0; i < 50; i++) {
 			int physician;
 			if (i < 10)
@@ -63,11 +62,11 @@ public class FacilityTester {
 				physician = physicianArray[2];
 			else if (i >= 30 && i < 40)
 				physician = physicianArray[3];
-			else 
+			else
 				physician = physicianArray[4];
-			
-					
-			largeFacility.addPatient(new CurrentPatient(firstNamesArray[i], lastNamesArray[i], uHIDArray[i], physician,datesArray[i]));
+
+			largeFacility.addPatient(
+					new CurrentPatient(firstNamesArray[i], lastNamesArray[i], uHIDArray[i], physician, datesArray[i]));
 		}
 
 	}
@@ -101,6 +100,17 @@ public class FacilityTester {
 	public void testEmptyGetRecentPatients() {
 		ArrayList<CurrentPatient> patients = emptyFacility.getRecentPatients(date3);
 		assertEquals(0, patients.size());
+	}
+
+	@Test
+	public void testEmptyGetPhysicianList() {
+		assertEquals(0, emptyFacility.getPhysicianList().size());
+	}
+
+	@Test
+	public void testEmptyAddPatient() {
+		emptyFacility.addPatient(new CurrentPatient("Blake", "Stodden", uHID1, 1111111, date1));
+		assertEquals(1, emptyFacility.lookupByPhysician(1111111).size());
 	}
 
 	// Very small facility tests ---------------------------------------------------
@@ -145,11 +155,17 @@ public class FacilityTester {
 		ArrayList<CurrentPatient> actual = smallFacility.getRecentPatients(new GregorianCalendar(2020, 0, 0));
 		assertEquals(2, actual.size());
 	}
-	
+
 	@Test
 	public void testSmallGetRecentPatientsFutureDate() {
 		ArrayList<CurrentPatient> actual = smallFacility.getRecentPatients(new GregorianCalendar(2030, 0, 0));
 		assertEquals(0, actual.size());
+	}
+
+	@Test
+	public void testSmallGetRecentPatientsPastDate() {
+		ArrayList<CurrentPatient> actual = smallFacility.getRecentPatients(new GregorianCalendar(1990, 0, 0));
+		assertEquals(11, actual.size());
 	}
 
 	@Test
@@ -192,12 +208,51 @@ public class FacilityTester {
 	public void testSmallLookupPhysicianNoPatients() {
 		assertEquals(0, smallFacility.lookupByPhysician(1212121).size());
 	}
-	
+
+	@Test
+	public void testGetPhysicianListNoDuplicates() {
+		assertEquals(7, smallFacility.getPhysicianList().size());
+	}
+
+	@Test
+	public void testGetPhysicianListContains() {
+		assertTrue(smallFacility.getPhysicianList().contains(1111111));
+	}
+
+	@Test
+	public void testSmallSetPhysician() {
+		assertEquals(2, smallFacility.lookupByPhysician(1111111).size());
+		smallFacility.setPhysician(new UHealthID("QRST-3456"), 1111111);
+		assertEquals(3, smallFacility.lookupByPhysician(1111111).size());
+	}
+
+	@Test
+	public void testSmallSetLastVisit() {
+		GregorianCalendar date = new GregorianCalendar(2020, 0, 0);
+		assertEquals(2, smallFacility.getRecentPatients(date).size());
+		smallFacility.setLastVisit(new UHealthID("ITER-7777"), new GregorianCalendar(2024, 0, 0));
+		assertEquals(3, smallFacility.getRecentPatients(date).size());
+	}
+
 	// Large Facility tests ------------------------------------------------------
-	
-	
-	
-	
+
+	/**
+	 * This method prints all the patients and their information in the largeFacility.
+	 */
+	@Test
+	public void printPatients() {
+		for (int i = 0; i <= 4444444; i += 1111111) {
+			ArrayList<CurrentPatient> patients = largeFacility.lookupByPhysician(i);
+			for (CurrentPatient patient : patients) {
+				System.out.print(patient.getFirstName() + " " + patient.getLastName() + " "
+						+ patient.getUHealthID().toString() + " " + patient.getPhysician() + " ");
+				System.out.print(patient.getLastVisit().toZonedDateTime());
+				System.out.println();
+			}
+			System.out.println();
+		}
+
+	}
 
 	// Helper methods ------------------------------------------------------------
 
