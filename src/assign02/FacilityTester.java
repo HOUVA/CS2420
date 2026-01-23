@@ -39,7 +39,7 @@ public class FacilityTester {
 		date1 = new GregorianCalendar(2023, 0, 1);
 		date2 = new GregorianCalendar(2023, 3, 17);
 		date3 = new GregorianCalendar(2022, 8, 21);
-		
+
 		fakePatient = new CurrentPatient("John", "Doe", uHID1, 1111111, date1);
 
 		emptyFacility = new Facility();
@@ -57,7 +57,7 @@ public class FacilityTester {
 		datesArray = generateDates(50);
 		firstNamesArray = generateNames(50);
 		lastNamesArray = generateNames(50);
-		physicianArray = new int[]{ 0000000, 1111111, 2222222, 3333333, 4444444 };
+		physicianArray = new int[] { 0000000, 1111111, 2222222, 3333333, 4444444 };
 
 		for (int i = 0; i < 50; i++) {
 			int physician;
@@ -232,7 +232,7 @@ public class FacilityTester {
 		smallFacility.setPhysician(new UHealthID("QRST-3456"), 1111111);
 		assertEquals(3, smallFacility.lookupByPhysician(1111111).size());
 	}
-	
+
 	@Test
 	public void testSmallSetPhysicianPatientDoesNotExist() {
 		smallFacility.setPhysician(uHID1, 1111111);
@@ -246,7 +246,7 @@ public class FacilityTester {
 		smallFacility.setLastVisit(new UHealthID("ITER-7777"), new GregorianCalendar(2024, 0, 0));
 		assertEquals(3, smallFacility.getRecentPatients(date).size());
 	}
-	
+
 	@Test
 	public void testSmallSetlastVisitPatientDoesNotExist() {
 		GregorianCalendar date = new GregorianCalendar(2020, 0, 0);
@@ -255,7 +255,7 @@ public class FacilityTester {
 	}
 
 	// Large Facility tests ------------------------------------------------------
-	
+
 	@Test
 	public void testLargeGetRecentPatients() {
 		ArrayList<CurrentPatient> actual = largeFacility.getRecentPatients(new GregorianCalendar(2020, 0, 0));
@@ -282,8 +282,8 @@ public class FacilityTester {
 
 	@Test
 	public void testLargeAddPatientAlreadyExists() {
-		assertFalse(largeFacility.addPatient(new CurrentPatient(firstNamesArray[0], lastNamesArray[0], uHIDArray[0], 0000000,
-				datesArray[0])));
+		assertFalse(largeFacility.addPatient(
+				new CurrentPatient(firstNamesArray[0], lastNamesArray[0], uHIDArray[0], 0000000, datesArray[0])));
 	}
 
 	@Test
@@ -301,7 +301,7 @@ public class FacilityTester {
 	public void testLargeLookupPhysicianPatients() {
 		CurrentPatient expectedPatient1 = new CurrentPatient(firstNamesArray[10], lastNamesArray[10], uHIDArray[10],
 				1111111, datesArray[10]);
-		CurrentPatient expectedPatient2 = new CurrentPatient(firstNamesArray[11], lastNamesArray[11], uHIDArray[11], 
+		CurrentPatient expectedPatient2 = new CurrentPatient(firstNamesArray[11], lastNamesArray[11], uHIDArray[11],
 				1111111, datesArray[11]);
 		ArrayList<CurrentPatient> actual = largeFacility.lookupByPhysician(1111111);
 
@@ -330,7 +330,7 @@ public class FacilityTester {
 		largeFacility.setPhysician(uHIDArray[0], 1111111);
 		assertEquals(11, largeFacility.lookupByPhysician(1111111).size());
 	}
-	
+
 	@Test
 	public void testLargeSetPhysicianPatientDoesNotExist() {
 		largeFacility.setPhysician(uHID1, 1111111);
@@ -343,14 +343,13 @@ public class FacilityTester {
 		largeFacility.setLastVisit(uHIDArray[0], new GregorianCalendar(2024, 0, 0));
 		assertEquals(5, largeFacility.getRecentPatients(date).size());
 	}
-	
+
 	@Test
 	public void testLargeSetlastVisitPatientDoesNotExist() {
 		GregorianCalendar date = new GregorianCalendar(2020, 0, 0);
 		largeFacility.setLastVisit(uHID1, new GregorianCalendar(2024, 0, 0));
 		assertFalse(largeFacility.getRecentPatients(date).contains(fakePatient));
 	}
-	
 
 	// Helper methods ------------------------------------------------------------
 

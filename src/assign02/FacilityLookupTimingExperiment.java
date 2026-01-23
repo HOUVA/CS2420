@@ -8,17 +8,17 @@ import java.util.Random;
 import timing.TimingExperiment;
 
 /**
- * Experiment to measure the running time for the lookupByUHID method in 
+ * Experiment to measure the running time for the lookupByUHID method in
  * facilities with various numbers of patients.
  *
  * @author CS 2420 course staff, Barrett Carpenter, and Matthew Suggars
  * @version January 21, 2025.
  */
 public class FacilityLookupTimingExperiment extends TimingExperiment {
-	private static String problemSizeDescription = "Number of Patients";  
-	private static int problemSizeMin = 10;  
-	private static int problemSizeCount = 200;  
-	private static int problemSizeStep = 50;  
+	private static String problemSizeDescription = "Number of Patients";
+	private static int problemSizeMin = 10;
+	private static int problemSizeCount = 200;
+	private static int problemSizeStep = 50;
 	private static int experimentIterationCount = 50;
 
 	private Facility randomFacility;
@@ -67,16 +67,16 @@ public class FacilityLookupTimingExperiment extends TimingExperiment {
 		ArrayList<CurrentPatient> patients = new ArrayList<CurrentPatient>(howMany);
 		HashSet<UHealthID> idSet = new HashSet<UHealthID>(howMany);
 		char[] prefix = new char[5];
-		while(idSet.size() < howMany) {
-			prefix[0] = (char)('A' + rng.nextInt(26));
-			prefix[1] = (char)('A' + rng.nextInt(26));
-			prefix[2] = (char)('A' + rng.nextInt(26));
-			prefix[3] = (char)('A' + rng.nextInt(26));
+		while (idSet.size() < howMany) {
+			prefix[0] = (char) ('A' + rng.nextInt(26));
+			prefix[1] = (char) ('A' + rng.nextInt(26));
+			prefix[2] = (char) ('A' + rng.nextInt(26));
+			prefix[3] = (char) ('A' + rng.nextInt(26));
 			prefix[4] = '-';
 			idSet.add(new UHealthID(new String(prefix) + String.format("%04d", rng.nextInt(10000))));
 		}
 		GregorianCalendar date = new GregorianCalendar(2025, 1, 1);
-		for(UHealthID id : idSet) {
+		for (UHealthID id : idSet) {
 			patients.add(new CurrentPatient("name", "name", id, 1234567, date));
 		}
 		return patients;
