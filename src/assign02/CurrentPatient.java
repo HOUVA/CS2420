@@ -19,7 +19,7 @@ public class CurrentPatient extends Patient {
 	 * physician UID and date of their last visit.
 	 * 
 	 * @param firstName - of the patient
-	 * @param lastName - of the patient
+	 * @param lastName  - of the patient
 	 * @param uHealthID - of the patient
 	 * @param physician UID number
 	 * @param lastVisit as a Calendar Date

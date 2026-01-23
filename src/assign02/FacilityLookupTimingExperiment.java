@@ -12,7 +12,7 @@ import timing.TimingExperiment;
  * facilities with various numbers of patients.
  *
  * @author CS 2420 course staff, Barrett Carpenter, and Matthew Suggars
- * @version January 21, 2025.
+ * @version January 20, 2025.
  */
 public class FacilityLookupTimingExperiment extends TimingExperiment {
 	private static String problemSizeDescription = "Number of Patients";

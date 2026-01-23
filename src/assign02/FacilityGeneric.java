@@ -5,8 +5,8 @@ import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 /**
- * This generic class represents a record of patients that have visited a UHealth
- * facility. It maintains a collection of CurrentPatients.
+ * This generic class represents a record of patients that have visited a
+ * UHealth facility. It maintains a collection of CurrentPatients.
  *
  * @author CS 2420 course staff, Barrett Carpenter, and Matthew Suggars
  * @version January 19, 2025.
@@ -118,14 +118,14 @@ public class FacilityGeneric<Type> {
 
 		for (CurrentPatientGeneric<Type> indexPatient : patientList) {
 			indexPatientPhysician = indexPatient.getPhysician();
-			
+
 			for (Type physician : physicianList)
 				if (indexPatientPhysician.equals(physician))
 					physicianExists = true;
 
 			if (!physicianExists)
 				physicianList.add(indexPatientPhysician);
-			else 
+			else
 				physicianExists = false;
 		}
 
@@ -164,7 +164,7 @@ public class FacilityGeneric<Type> {
 		;
 
 	}
-	
+
 	/**
 	 * Returns the list of current patients in this facility, sorted according to
 	 * the provided Comparator.
@@ -173,37 +173,36 @@ public class FacilityGeneric<Type> {
 	 * @return an ordered list of all patients in this facility
 	 */
 	public ArrayList<CurrentPatientGeneric<Type>> getOrderedPatients(Comparator<CurrentPatientGeneric<Type>> cmp) {
-	    ArrayList<CurrentPatientGeneric<Type>> patientListCopy = new ArrayList<CurrentPatientGeneric<Type>>();
-	    for (CurrentPatientGeneric<Type> patient : patientList) {
-	        patientListCopy.add(patient);
-	    }
-	    sort(patientListCopy, cmp);
-	    return patientListCopy;
+		ArrayList<CurrentPatientGeneric<Type>> patientListCopy = new ArrayList<CurrentPatientGeneric<Type>>();
+		for (CurrentPatientGeneric<Type> patient : patientList) {
+			patientListCopy.add(patient);
+		}
+		sort(patientListCopy, cmp);
+		return patientListCopy;
 	}
 
 	/**
 	 * Performs a SELECTION SORT on the input ArrayList.
 	 * 
-	 * 1. Finds the smallest item in the list. 
-	 * 2. Swaps the smallest item with the first item in the list. 
-	 * 3. Reconsiders the list to be the remaining unsorted portion (second item to Nth item) and 
-	 *    repeats steps 1, 2, and 3.
+	 * 1. Finds the smallest item in the list. 2. Swaps the smallest item with the
+	 * first item in the list. 3. Reconsiders the list to be the remaining unsorted
+	 * portion (second item to Nth item) and repeats steps 1, 2, and 3.
 	 * 
 	 * @param list - to sort
 	 * @param cmp  - Comparator to use
 	 */
 	private static <ListType> void sort(ArrayList<ListType> list, Comparator<ListType> cmp) {
-	    for (int i = 0; i < list.size() - 1; i++) {
-	        int j, minIndex;
-	        for (j = i + 1, minIndex = i; j < list.size(); j++) {
-	            if (cmp.compare(list.get(j), list.get(minIndex)) < 0) {
-	                minIndex = j;
-	            }
-	        }
-	        ListType temp = list.get(i);
-	        list.set(i, list.get(minIndex));
-	        list.set(minIndex, temp);
-	    }
+		for (int i = 0; i < list.size() - 1; i++) {
+			int j, minIndex;
+			for (j = i + 1, minIndex = i; j < list.size(); j++) {
+				if (cmp.compare(list.get(j), list.get(minIndex)) < 0) {
+					minIndex = j;
+				}
+			}
+			ListType temp = list.get(i);
+			list.set(i, list.get(minIndex));
+			list.set(minIndex, temp);
+		}
 	}
 
 }

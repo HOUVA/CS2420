@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * This class contains tests for FacilityGeneric.
  * 
  * @author CS 2420 course staff, Barrett Carpenter, and Matthew Suggars.
- * @version January 20, 2025.
+ * @version January 22, 2025.
  */
 public class FacilityGenericTester {
 
@@ -136,7 +136,6 @@ public class FacilityGenericTester {
 		assertEquals(expectedPatient, actualPatients.get(0));
 	}
 
-	// Add more tests
 	@Test
 	public void testUIDAddPatient() {
 		// first name must be != index 1 to create a unique generic patient object (if =
@@ -151,41 +150,42 @@ public class FacilityGenericTester {
 		CurrentPatientGeneric<Integer> patient = uIDFacility.lookupByUHID(uHIDs[1]);
 		assertEquals(9090909, patient.getPhysician());
 	}
-	
-//	@Test
-//	public void testUIDLookupUHID() {
-//		assertNull(uIDFacility.lookupByUHID(uHIDs[0]));
-//	}
-//
-//	@Test
-//	public void testUIDLookupPhysician() {
-//		ArrayList<CurrentPatientGeneric<Integer>> patients = uIDFacility.lookupByPhysician(1010101);
-//		assertEquals(0, patients.size());
-//	}
-//
-//	@Test
-//	public void testUIDSetVisit() {
-//		// ensure no exceptions thrown
-//		uIDFacility.setLastVisit(uHIDs[0], dates[3]);
-//	}
-//
-//	@Test
-//	public void testUIDSetPhysician() {
-//		// ensure no exceptions thrown
-//		uIDFacility.setPhysician(uHIDs[0], 1010101);
-//	}
-//
-//	@Test
-//	public void testUIDGetRecentPatients() {
-//		ArrayList<CurrentPatientGeneric<Integer>> patients = uIDFacility.getRecentPatients(dates[4]);
-//		assertEquals(0, patients.size());
-//	}
-//
-//	@Test
-//	public void testUIDGetPhysicianList() {
-//		assertEquals(0, uIDFacility.getPhysicianList().size());
-//	}
 
+	@Test
+	public void testUIDLookupUHID() {
+		CurrentPatientGeneric<Integer> patient = new CurrentPatientGeneric<>(firstNames[0], lastNames[0], uHIDs[0],
+				1010101, dates[0]);
+		assertEquals(uIDFacility.lookupByUHID(uHIDs[0]), patient);
+	}
+
+	@Test
+	public void testUIDLookupPhysician() {
+		ArrayList<CurrentPatientGeneric<Integer>> patients = uIDFacility.lookupByPhysician(1010101);
+		assertEquals(0, patients.size());
+	}
+
+	@Test
+	public void testUIDSetVisit() {
+		// ensure no exceptions thrown
+		uIDFacility.setLastVisit(uHIDs[0], dates[3]);
+	}
+
+	@Test
+	public void testUIDSetPhysician() {
+		// ensure no exceptions thrown
+		uIDFacility.setPhysician(uHIDs[0], 1010101);
+	}
+
+	@Test
+	public void testUIDGetRecentPatients() {
+		ArrayList<CurrentPatientGeneric<Integer>> patients = uIDFacility.getRecentPatients(dates[4]);
+		assertEquals(15, patients.size());
+	}
+
+	@Test
+	public void testUIDGetPhysicianList() {
+		assertEquals(8, uIDFacility.getPhysicianList().size());
+	}
 
 	// UHealthID facility tests ---------------------------------------------------
 
@@ -203,56 +203,51 @@ public class FacilityGenericTester {
 		assertEquals(uHIDs[uHIDs.length - 1], patient.getPhysician());
 	}
 
-	// Add more tests
-//	@Test
-//	public void testUHIDLookupPhysicianPatient() {
-//		Patient expectedPatient = new Patient(firstNames[1], lastNames[1], new UHealthID(uHIDs[1].toString()));
-//		ArrayList<CurrentPatientGeneric<UHealthID>> actualPatients = uHIDFacility.lookupByPhysician(1234568);
-//		assertEquals(expectedPatient, actualPatients.get(0));
-//	}
-//
-//	@Test
-//	public void testUHIDAddPatient() {
-//		// first name must be != index 1 to create a unique generic patient object (if =
-//		// index 1, the new patient exist in the facility already, and will not be added
-//		assertTrue(uHIDFacility.addPatient(
-//				new CurrentPatientGeneric<UHealthID>(firstNames[2], lastNames[1], uHIDs[1], 1111111, dates[1])));
-//	}
-//
-//	@Test
-//	public void testUHIDLookupUHID() {
-//		assertNull(uHIDFacility.lookupByUHID(uHIDs[0]));
-//	}
-//
-//	@Test
-//	public void testUHIDLookupPhysician() {
-//		ArrayList<CurrentPatientGeneric<UHealthID>> patients = uHIDity.lookupByPhysician(1010101);
-//		assertEquals(0, patients.size());
-//	}
-//
-//	@Test
-//	public void testUHIDSetVisit() {
-//		// ensure no exceptions thrown
-//		uHIDFacility.setLastVisit(uHIDs[0], dates[3]);
-//	}
-//
-//	@Test
-//	public void testUHIDSetPhysician() {
-//		// ensure no exceptions thrown
-//		uHIDFacility.setPhysician(uHIDs[0], 1010101);
-//	}
-//
-//	@Test
-//	public void testUHIDGetRecentPatients() {
-//		ArrayList<CurrentPatientGeneric<UHealthID>> patients = emptyFacility.getRecentPatients(dates[4]);
-//		assertEquals(0, patients.size());
-//	}
-//
-//	@Test
-//	public void testUHIDGetPhysicianList() {
-//		assertEquals(0, UHIDFacility.getPhysicianList().size());
-//	}
+	@Test
+	public void testUHIDLookupPhysicianPatient() {
+		CurrentPatientGeneric<UHealthID> expectedPatient = new CurrentPatientGeneric<>(firstNames[1], lastNames[1],
+				uHIDs[1], uHIDs[21], dates[1]);
+		ArrayList<CurrentPatientGeneric<UHealthID>> actualPatients = uHIDFacility.lookupByPhysician(uHIDs[21]);
+		assertEquals(expectedPatient, actualPatients.get(0));
+	}
 
+	@Test
+	public void testUHIDAddPatient() {
+		// first name must be != index 1 to create a unique generic patient object (if =
+		// index 1, the new patient exist in the facility already, and will not be added
+		assertTrue(uHIDFacility.addPatient(new CurrentPatientGeneric<UHealthID>(firstNames[2], lastNames[1], uHIDs[1],
+				new UHealthID("XXXX-1111"), dates[1])));
+	}
+
+	@Test
+	public void testUHIDLookupUHID() {
+		CurrentPatientGeneric<UHealthID> patient = new CurrentPatientGeneric<>(firstNames[0], lastNames[0], uHIDs[0],
+				new UHealthID("XXXX-1111"), dates[0]);
+		assertEquals(uIDFacility.lookupByUHID(uHIDs[0]), patient);
+	}
+
+	@Test
+	public void testUHIDSetVisit() {
+		// ensure no exceptions thrown
+		uHIDFacility.setLastVisit(uHIDs[0], dates[3]);
+	}
+
+	@Test
+	public void testUHIDSetPhysician() {
+		// ensure no exceptions thrown
+		uHIDFacility.setPhysician(uHIDs[0], new UHealthID("XXXX-1111"));
+	}
+
+	@Test
+	public void testUHIDGetRecentPatients() {
+		ArrayList<CurrentPatientGeneric<UHealthID>> patients = uHIDFacility.getRecentPatients(dates[4]);
+		assertEquals(15, patients.size());
+	}
+
+	@Test
+	public void testUHIDGetPhysicianList() {
+		assertEquals(8, uHIDFacility.getPhysicianList().size());
+	}
 
 	// name facility tests
 	// -------------------------------------------------------------------------
@@ -272,12 +267,12 @@ public class FacilityGenericTester {
 		assertEquals(8, actual.size());
 	}
 
-	// Add more tests
-
-//	@Test
-//	public void testNameLookupUHID() {
-//		assertNull(nameFacility.lookupByUHID(uHIDs[0]));
-//	}
+	@Test
+	public void testNameLookupUHID() {
+		CurrentPatientGeneric<String> patient = new CurrentPatientGeneric<>(firstNames[0], lastNames[0], uHIDs[0],
+				"XXXX-1111", dates[0]);
+		assertEquals(uIDFacility.lookupByUHID(uHIDs[0]), patient);
+	}
 
 	@Test
 	public void testNameSetVisit() {
@@ -291,20 +286,20 @@ public class FacilityGenericTester {
 		nameFacility.setPhysician(uHIDs[0], physicianNames[0]);
 	}
 
-//	@Test
-//	public void testNameGetRecentPatients() {
-//		ArrayList<CurrentPatientGeneric<String>> patients = nameFacility.getRecentPatients(dates[0]);
-//		assertEquals(20, patients.size());
-//	}
-//
-//	@Test
-//	public void testNameAddPatient() {
-//
-//	}
-	
+	@Test
+	public void testNameGetRecentPatients() {
+		ArrayList<CurrentPatientGeneric<String>> patients = nameFacility.getRecentPatients(dates[0]);
+		assertEquals(19, patients.size());
+	}
+
+	@Test
+	public void testNameAddPatient() {
+		assertTrue(uHIDFacility.addPatient(new CurrentPatientGeneric<UHealthID>(firstNames[2], lastNames[1], uHIDs[1],
+				new UHealthID("XXXX-1111"), dates[1])));
+	}
+
 	// phase 3 tests
 	// ---------------------------------------------------------------------------
-	// Uncomment these when you get to phase 3
 
 	@Test
 	public void testOrderedByUHIDCount() {
