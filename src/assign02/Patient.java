@@ -66,8 +66,7 @@ public class Patient {
 
 		Patient otherPatient = (Patient) other;
 
-		return this.firstName.equals(otherPatient.getFirstName()) && this.lastName.equals(otherPatient.getLastName())
-				&& this.uHealthID.equals(otherPatient.getUHealthID());
+		return this.uHealthID.equals(otherPatient.getUHealthID());
 	}
 
 	/**

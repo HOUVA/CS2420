@@ -18,7 +18,7 @@ public class FacilityLookupTimingExperiment extends TimingExperiment {
 	private static String problemSizeDescription = "Number of Patients";
 	private static int problemSizeMin = 10;
 	private static int problemSizeCount = 200;
-	private static int problemSizeStep = 50;
+	private static int problemSizeStep = 100;
 	private static int experimentIterationCount = 50;
 
 	private Facility randomFacility;
