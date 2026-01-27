@@ -10,10 +10,10 @@ import java.util.NoSuchElementException;
  * @author Barrett Carpenter and Matthew Suggars
  * @version January 24, 2026.
  */
-public class SimplePriorityQueue<E> implements PriorityQueue {
+public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 
 	/**
-	 * If this constructor is used to create the priority queue, it is assumed that
+	 * When this constructor is used to create the priority queue, it is assumed that
 	 * the elements are ordered using their natural ordering
 	 */
 	public SimplePriorityQueue() {
@@ -21,7 +21,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue {
 	}
 
 	/**
-	 * If this constructor is used to create the priority queue, it is assumed that
+	 * When this constructor is used to create the priority queue, it is assumed that
 	 * the elements are ordered using their natural ordering
 	 * 
 	 * @param cmp
