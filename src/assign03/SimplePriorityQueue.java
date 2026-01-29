@@ -6,82 +6,230 @@ import java.util.NoSuchElementException;
 
 /**
  * A simple priority queue that can accommodate any type of item.
- *  
+ * 
  * @author Barrett Carpenter and Matthew Suggars
  * @version January 24, 2026.
  */
 public class SimplePriorityQueue<E> implements PriorityQueue<E> {
+	private E[] array;
+	private int elementCount;
+	private Comparator<? super E> cmp;
 
 	/**
-	 * When this constructor is used to create the priority queue, it is assumed that
-	 * the elements are ordered using their natural ordering
+	 * When this constructor is used to create the priority queue, it is assumed
+	 * that the elements are ordered using their natural ordering
 	 */
+	@SuppressWarnings("unchecked")
 	public SimplePriorityQueue() {
-
+		array = (E[]) new Object[16];
+		elementCount = 0;
 	}
 
 	/**
-	 * When this constructor is used to create the priority queue, it is assumed that
-	 * the elements are ordered using their natural ordering
+	 * If this constructor is used to create the priority queue, it is assumed that
+	 * the elements are ordered using the provided Comparator object.
 	 * 
 	 * @param cmp
 	 */
+	@SuppressWarnings("unchecked")
 	public SimplePriorityQueue(Comparator<? super E> cmp) {
-
+		array = (E[]) new Object[16];
+		elementCount = 0;
+		this.cmp = cmp;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
-
+		elementCount = 0;
 	}
 
 	@Override
 	public boolean contains(Object item) {
-		// TODO Auto-generated method stub
-		return false;
+		return binarySearch(item) >= 0;
 	}
 
 	@Override
-	public boolean containsAll(Collection coll) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean containsAll(Collection<? extends E> coll) {
+		if (coll.size() == 0)
+			return true;
+
+		for (Object item : coll) {
+			if (binarySearch(item) < 0)
+				return false;
+		}
+
+		return true;
 	}
 
 	@Override
-	public Object deleteMax() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+	public E deleteMax() throws NoSuchElementException {
+		if (elementCount == 0)
+			throw new NoSuchElementException("No elements in queue");
+
+		int maxElement = elementCount;
+		elementCount -= 1;
+
+		return array[maxElement];
 	}
 
 	@Override
-	public Object findMax() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+	public E findMax() throws NoSuchElementException {
+		if (elementCount == 0)
+			throw new NoSuchElementException("No elements in queue");
+		return array[elementCount - 1];
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public void insert(Object item) {
-		// TODO Auto-generated method stub
+		if (array.length == elementCount)
+			doubleArraySize();
+
+		int result = binarySearch(item);
+
+		if (result < 0) 
+			result = (result - 1) * -1;	
+			
+		for (int i = elementCount; i > result; i--)
+			array[i] = array[i - 1];
+		array[result] = (E) item;
+		
+		elementCount++;
 
 	}
 
 	@Override
-	public void insertAll(Collection coll) {
-		// TODO Auto-generated method stub
+	public void insertAll(Collection<? extends E> coll) {
+		if (array.length == elementCount)
+			doubleArraySize();
+
+		for (Object item : coll) {
+			insert(item);
+		}
 
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return elementCount == 0;
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return elementCount;
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	private void doubleArraySize() {
+		E[] doubledArray = (E[]) new Object[elementCount * 2];
+
+		for (int i = 0; i < elementCount; i++)
+			doubledArray[i] = array[i];
+
+		array = doubledArray;
+	}
+
+	/**
+	 * 
+	 */
+//	@SuppressWarnings("unchecked")
+//	private int binarySearch(Object item, int start, int end, boolean checkingForContains) {
+//		if (start > end)
+//			return elementCount;
+//
+//		int middleIndex = (start + end) / 2;
+//
+//		if (checkingForContains) {
+//
+//			if (this.cmp != null) {
+//
+//				if (cmp.compare(array[middleIndex], (E) item) == 0)
+//					return middleIndex;
+//				else if (cmp.compare(array[middleIndex], (E) item) > 0)
+//					return binarySearch(item, start, middleIndex - 1, true);
+//				else
+//					return binarySearch(item, middleIndex + 1, end, true);
+//			} else {
+//				if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) == 0)
+//					return middleIndex;
+//				else if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) > 0)
+//					return binarySearch(item, start, middleIndex - 1, true);
+//				else
+//					return binarySearch(item, middleIndex + 1, end, true);
+//			}
+//
+//		} else {
+//
+//			if (this.cmp != null) {
+//				if (cmp.compare(array[start], (E) item) > 0 && cmp.compare(array[start + 1], (E) item) < 0)
+//					return start + 1;
+//
+//				if (cmp.compare(array[middleIndex], (E) item) == 0)
+//					return middleIndex;
+//				else if (cmp.compare(array[middleIndex], (E) item) > 0)
+//					return binarySearch(item, start, middleIndex - 1, false);
+//				else
+//					return binarySearch(item, middleIndex + 1, end, false);
+//			} else {
+//				if (((Comparable<? super E>) array[start]).compareTo((E) item) > 0 && ((Comparable<? super E>) array[start + 1]).compareTo((E) item) < 0)
+//					return start + 1;
+//				
+//				if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) == 0)
+//					return middleIndex;
+//				else if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) > 0)
+//					return binarySearch(item, start, middleIndex - 1, false);
+//				else
+//					return binarySearch(item, middleIndex + 1, end, false);
+//			}
+//		}
+//	}
+
+	/**
+	 * This helper method runs a binary search on array to return the index of a
+	 * specific item. If the item does not exist in the array, returns a negative
+	 * number representing the proper index + 1 to insert the item in the array. 
+	 * 
+	 * @param item to check in array
+	 * @return the index of the item in array. If the item does not exist, returns a
+	 *         negative number.
+	 */
+	@SuppressWarnings("unchecked")
+	private int binarySearch(Object item) {
+		int middle, foundValue = -1;
+		int start = 0;
+		int end = elementCount - 1;
+
+		while (start <= end) {
+			middle = (start + end) / 2;
+
+			if (this.cmp != null) {
+
+				if (cmp.compare(array[middle], (E) item) == 0)
+					foundValue = middle;
+				else if (cmp.compare(array[middle], (E) item) > 0)
+					end = middle - 1;
+				else
+					start = middle - 1;
+
+			} else {
+				
+				if (((Comparable<? super E>) array[middle]).compareTo((E) item) == 0)
+					foundValue = middle;
+				else if (((Comparable<? super E>) array[middle]).compareTo((E) item) > 0)
+					end = middle - 1;
+				else
+					start = middle - 1;
+			}
+		}
+
+		if (foundValue >= 0)
+			return foundValue;
+		else 
+			return (start + 1) * -1;
+
 	}
 
 }
