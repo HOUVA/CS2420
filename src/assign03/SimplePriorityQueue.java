@@ -66,7 +66,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 		if (elementCount == 0)
 			throw new NoSuchElementException("No elements in queue");
 
-		int maxElement = elementCount;
+		int maxElement = elementCount - 1;
 		elementCount -= 1;
 
 		return array[maxElement];
@@ -88,7 +88,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 		int result = binarySearch(item);
 
 		if (result < 0) 
-			result = (result - 1) * -1;	
+			result = (result + 1) * -1;	
 			
 		for (int i = elementCount; i > result; i--)
 			array[i] = array[i - 1];
@@ -133,61 +133,6 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 	}
 
 	/**
-	 * 
-	 */
-//	@SuppressWarnings("unchecked")
-//	private int binarySearch(Object item, int start, int end, boolean checkingForContains) {
-//		if (start > end)
-//			return elementCount;
-//
-//		int middleIndex = (start + end) / 2;
-//
-//		if (checkingForContains) {
-//
-//			if (this.cmp != null) {
-//
-//				if (cmp.compare(array[middleIndex], (E) item) == 0)
-//					return middleIndex;
-//				else if (cmp.compare(array[middleIndex], (E) item) > 0)
-//					return binarySearch(item, start, middleIndex - 1, true);
-//				else
-//					return binarySearch(item, middleIndex + 1, end, true);
-//			} else {
-//				if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) == 0)
-//					return middleIndex;
-//				else if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) > 0)
-//					return binarySearch(item, start, middleIndex - 1, true);
-//				else
-//					return binarySearch(item, middleIndex + 1, end, true);
-//			}
-//
-//		} else {
-//
-//			if (this.cmp != null) {
-//				if (cmp.compare(array[start], (E) item) > 0 && cmp.compare(array[start + 1], (E) item) < 0)
-//					return start + 1;
-//
-//				if (cmp.compare(array[middleIndex], (E) item) == 0)
-//					return middleIndex;
-//				else if (cmp.compare(array[middleIndex], (E) item) > 0)
-//					return binarySearch(item, start, middleIndex - 1, false);
-//				else
-//					return binarySearch(item, middleIndex + 1, end, false);
-//			} else {
-//				if (((Comparable<? super E>) array[start]).compareTo((E) item) > 0 && ((Comparable<? super E>) array[start + 1]).compareTo((E) item) < 0)
-//					return start + 1;
-//				
-//				if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) == 0)
-//					return middleIndex;
-//				else if (((Comparable<? super E>) array[middleIndex]).compareTo((E) item) > 0)
-//					return binarySearch(item, start, middleIndex - 1, false);
-//				else
-//					return binarySearch(item, middleIndex + 1, end, false);
-//			}
-//		}
-//	}
-
-	/**
 	 * This helper method runs a binary search on array to return the index of a
 	 * specific item. If the item does not exist in the array, returns a negative
 	 * number representing the proper index + 1 to insert the item in the array. 
@@ -202,26 +147,35 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 		int start = 0;
 		int end = elementCount - 1;
 
+//		if (elementCount == 0) {
+//			return 0;
+//		}
+
 		while (start <= end) {
+			
 			middle = (start + end) / 2;
 
 			if (this.cmp != null) {
 
-				if (cmp.compare(array[middle], (E) item) == 0)
+				if (cmp.compare(array[middle], (E) item) == 0) {
 					foundValue = middle;
+					break;
+			}
 				else if (cmp.compare(array[middle], (E) item) > 0)
 					end = middle - 1;
 				else
-					start = middle - 1;
+					start = middle + 1;
 
 			} else {
 				
-				if (((Comparable<? super E>) array[middle]).compareTo((E) item) == 0)
+				if (((Comparable<? super E>) array[middle]).compareTo((E) item) == 0) {
 					foundValue = middle;
+					break;
+				}
 				else if (((Comparable<? super E>) array[middle]).compareTo((E) item) > 0)
 					end = middle - 1;
 				else
-					start = middle - 1;
+					start = middle + 1;
 			}
 		}
 
