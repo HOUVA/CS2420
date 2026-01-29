@@ -7,6 +7,12 @@ import java.util.NoSuchElementException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * This class contains tests for SimplePriorityQueue.
+ * 
+ * @author Barrett Carpenter and Matthew Suggars
+ * @version January 29, 2026.
+ */
 class SimplePriorityQueueTester {
 	private SimplePriorityQueue<Integer> integerQueue, integerQueueCmp;
 	private SimplePriorityQueue<String> stringQueue, stringQueueCmp;
