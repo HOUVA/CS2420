@@ -157,6 +157,10 @@ class SimplePriorityQueueTester {
 //	void testContainsAllEmptyQueue() {
 //	}
 
+	// Testing insert Method
+	
+	// Testing insertAll Method
+	
 	// Testing isEmpty Method
 	@Test
 	void testIsEmptyInteger() {

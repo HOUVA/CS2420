@@ -87,12 +87,11 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 	@Override
 	public E deleteMax() throws NoSuchElementException {
 		if (elementCount == 0)
-			throw new NoSuchElementException("No elements in queue");
+			throw new NoSuchElementException("Nothing in queue");
 
-		int maxElement = elementCount - 1;
 		elementCount -= 1;
 
-		return array[maxElement];
+		return array[elementCount];
 	}
 
 	/**
@@ -104,7 +103,8 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 	@Override
 	public E findMax() throws NoSuchElementException {
 		if (elementCount == 0)
-			throw new NoSuchElementException("No elements in queue");
+			throw new NoSuchElementException("Nothing in queue");
+
 		return array[elementCount - 1];
 	}
 
