@@ -128,39 +128,181 @@ class SimplePriorityQueueTester {
 		assertFalse(emptyQueue.contains(1));
 	}
 
-//	// Testing containsAll method
-//	@Test
-//	void testContainsAllInteger() {
-//	}
-//
-//	@Test
-//	void testContainsAllIntegerCmp() {
-//	}
-//	
-//	@Test
-//	void testContainsAllString() {
-//	}
-//
-//	@Test
-//	void testContainsAllStringCmp() {
-//	}
-//	
-//	@Test
-//	void testContainsAllCharacter() {
-//	}
-//
-//	@Test
-//	void testContainsAllCharacterCmp() {
-//	}
-//	
-//	@Test
-//	void testContainsAllEmptyQueue() {
-//	}
+//		// Testing containsAll method
+//		@Test
+//		void testContainsAllInteger() {
+//		}
+	//
+//		@Test
+//		void testContainsAllIntegerCmp() {
+//		}
+	//
+//		@Test
+//		void testContainsAllString() {
+//		}
+	//
+//		@Test
+//		void testContainsAllStringCmp() {
+//		}
+	//
+//		@Test
+//		void testContainsAllCharacter() {
+//		}
+	//
+//		@Test
+//		void testContainsAllCharacterCmp() {
+//		}
+	//
+//		@Test
+//		void testContainsAllEmptyQueue() {
+//		}
 
-	// Testing insert Method
-	
-	// Testing insertAll Method
-	
+	// Testing deleteMax method
+	@Test
+	void testDeleteMaxInteger() {
+		assertEquals(4, integerQueue.deleteMax());
+		assertEquals(3, integerQueue.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxIntegerCmp() {
+		assertEquals(0, integerQueueCmp.deleteMax());
+		assertEquals(1, integerQueueCmp.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxString() {
+		assertEquals("eat", stringQueue.deleteMax());
+		assertEquals("do", stringQueue.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxStringCmp() {
+		assertEquals("below", stringQueueCmp.deleteMax());
+		assertEquals("clap", stringQueueCmp.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxCharacter() {
+		assertEquals('e', charQueue.deleteMax());
+		assertEquals('d', charQueue.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxCharacterCmp() {
+		assertEquals('a', charQueueCmp.deleteMax());
+		assertEquals('b', charQueueCmp.deleteMax());
+	}
+
+	@Test
+	void testDeleteMaxEmptyQueue() {
+		assertThrows(NoSuchElementException.class, () -> {
+			emptyQueue.deleteMax();
+		});
+	}
+
+	// Testing findMax method
+	@Test
+	void testFindMaxInteger() {
+		assertEquals(4, integerQueue.findMax());
+		assertEquals(4, integerQueue.findMax());
+	}
+
+	@Test
+	void testFindMaxIntegerCmp() {
+		assertEquals(0, integerQueueCmp.findMax());
+		assertEquals(0, integerQueueCmp.findMax());
+	}
+
+	@Test
+	void testFindMaxString() {
+		assertEquals("eat", stringQueue.findMax());
+		assertEquals("eat", stringQueue.findMax());
+	}
+
+	@Test
+	void testFindMaxStringCmp() {
+		assertEquals("below", stringQueueCmp.findMax());
+		assertEquals("below", stringQueueCmp.findMax());
+	}
+
+	@Test
+	void testFindMaxCharacter() {
+		assertEquals('e', charQueue.findMax());
+		assertEquals('e', charQueue.findMax());
+	}
+
+	@Test
+	void testFindMaxCharacterCmp() {
+		assertEquals('a', charQueueCmp.findMax());
+		assertEquals('a', charQueueCmp.findMax());
+	}
+
+	@Test
+	void testFindMaxEmptyQueue() {
+		assertThrows(NoSuchElementException.class, () -> {
+			emptyQueue.findMax();
+		});
+	}
+
+//		// Testing insert method
+//		@Test
+//		void testInsertInteger() {
+//		}
+	//
+//		@Test
+//		void testInsertIntegerCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertString() {
+//		}
+	//
+//		@Test
+//		void testInsertStringCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertCharacter() {
+//		}
+	//
+//		@Test
+//		void testInsertCharacterCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertEmptyQueue() {
+//		}
+
+//		// Testing insertAll method
+//		@Test
+//		void testInsertAllInteger() {
+//		}
+	//
+//		@Test
+//		void testInsertAllIntegerCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertAllString() {
+//		}
+	//
+//		@Test
+//		void testInsertAllStringCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertAllCharacter() {
+//		}
+	//
+//		@Test
+//		void testInsertAllCharacterCmp() {
+//		}
+	//
+//		@Test
+//		void testInsertAllEmptyQueue() {
+//		}
+
 	// Testing isEmpty Method
 	@Test
 	void testIsEmptyInteger() {
@@ -208,7 +350,7 @@ class SimplePriorityQueueTester {
 	void testIsEmptyEmptyQueue() {
 		assertTrue(emptyQueue.isEmpty());
 	}
-	
+
 	// Testing size method
 	@Test
 	void testSizeInteger() {
@@ -237,6 +379,7 @@ class SimplePriorityQueueTester {
 		stringQueueCmp.clear();
 		assertEquals(0, stringQueueCmp.size());
 	}
+
 	@Test
 	void testSizeCharacter() {
 		assertEquals(5, charQueue.size());
@@ -249,89 +392,5 @@ class SimplePriorityQueueTester {
 		assertEquals(5, charQueueCmp.size());
 		charQueueCmp.clear();
 		assertEquals(0, charQueueCmp.size());
-	}
-	
-	// Testing findMax method
-	@Test
-	void testFindMaxInteger() {
-		assertEquals(4, integerQueue.findMax());
-		assertEquals(4, integerQueue.findMax());
-	}
-
-	@Test
-	void testFindMaxIntegerCmp() {
-		assertEquals(0, integerQueueCmp.findMax());
-		assertEquals(0, integerQueueCmp.findMax());
-	}
-
-	@Test
-	void testFindMaxString() {
-		assertEquals("eat", stringQueue.findMax());
-		assertEquals("eat", stringQueue.findMax());
-	}
-
-	@Test
-	void testFindMaxStringCmp() {
-		assertEquals("below", stringQueueCmp.findMax());
-		assertEquals("below", stringQueueCmp.findMax());
-
-	}
-	@Test
-	void testFindMaxCharacter() {
-		assertEquals('e', charQueue.findMax());
-		assertEquals('e', charQueue.findMax());
-	}
-
-	@Test
-	void testFindMaxCharacterCmp() {
-		assertEquals('a', charQueueCmp.findMax());
-		assertEquals('a', charQueueCmp.findMax());
-	}
-	
-	@Test
-	void testFindMaxEmptyQueue() {
-		assertThrows(NoSuchElementException.class, () -> {emptyQueue.findMax();});
-	}
-	
-	// Testing deleteMax method
-	@Test
-	void testDeleteMaxInteger() {
-		assertEquals(4, integerQueue.deleteMax());
-		assertEquals(3, integerQueue.deleteMax());
-	}
-
-	@Test
-	void testDeleteMaxIntegerCmp() {
-		assertEquals(0, integerQueueCmp.deleteMax());
-		assertEquals(1, integerQueueCmp.deleteMax());
-	}
-
-	@Test
-	void testDeleteMaxString() {
-		assertEquals("eat", stringQueue.deleteMax());
-		assertEquals("do", stringQueue.deleteMax());
-	}
-
-	@Test
-	void testDeleteMaxStringCmp() {
-		assertEquals("below", stringQueueCmp.deleteMax());
-		assertEquals("clap", stringQueueCmp.deleteMax());
-
-	}
-	@Test
-	void testDeleteMaxCharacter() {
-		assertEquals('e', charQueue.deleteMax());
-		assertEquals('d', charQueue.deleteMax());
-	}
-
-	@Test
-	void testDeleteMaxCharacterCmp() {
-		assertEquals('a', charQueueCmp.deleteMax());
-		assertEquals('b', charQueueCmp.deleteMax());
-	}
-	
-	@Test
-	void testDeleteMaxEmptyQueue() {
-		assertThrows(NoSuchElementException.class, () -> {emptyQueue.deleteMax();});
 	}
 }
