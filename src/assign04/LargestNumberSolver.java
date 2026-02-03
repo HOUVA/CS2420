@@ -3,6 +3,7 @@ package assign04;
 import java.util.List;
 import java.math.BigInteger;
 import java.util.Comparator;
+import java.io.File;
 
 /**
  * This class determines the largest number possible from the contents of a
@@ -101,6 +102,7 @@ public class LargestNumberSolver {
 	 * @return List object of Integer arrays.
 	 */
 	public static List<Integer[]> readFile(String filename) {
+		File file = new File(filename);
 		return null;
 
 	}
