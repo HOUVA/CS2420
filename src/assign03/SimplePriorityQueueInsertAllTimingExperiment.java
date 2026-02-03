@@ -16,9 +16,9 @@ public class SimplePriorityQueueInsertAllTimingExperiment extends TimingExperime
 
 	private static String problemSizeDescription = "SPQ size";
 	private static int problemSizeMin = 10000;
-	private static int problemSizeCount = 19;
-	private static int problemSizeStep = 5500;
-	private static int experimentIterationCount = 20;
+	private static int problemSizeCount = 30;
+	private static int problemSizeStep = 5000;
+	private static int experimentIterationCount = 50;
 
 	private final static Random rng = new Random();
 
