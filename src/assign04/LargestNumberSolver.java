@@ -139,7 +139,8 @@ public class LargestNumberSolver {
 		// TODO 1. check if k is within the bounds of the list. If not, throw
 		// IllegalArgumentException.
 		// TODO 2. create a copy of the list
-		// TODO 3. 
+		// TODO 3. iterate through list, and find the largest number for each Integer array.
+		// TODO 4.
 
 	}
 
