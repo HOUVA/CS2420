@@ -23,7 +23,22 @@ public class LargestNumberSolver {
 	 * @param cmp - Comparator object to determine the order of sorting.
 	 */
 	public static <T> void insertionSort(T[] arr, Comparator<? super T> cmp) {
+		// TODO 1. iterate through the array, start at index 1 instead of 0 since the
+		// first
+		// item
+		// is sorted.
 
+		// TODO 2. store the value of the element at the index of the array to a
+		// temporary
+		// variable.
+
+		// TODO 3. iterate backwards through the sorted portion of the array
+		// stop iterating when we reach the first position of the array, or we reach a
+		// value that should come before our element.
+		// 3a. start at the index which is one less than the index of the acquired
+		// element.
+		// 3b. set the value at the index of the acquired element to the element at the
+		// new index.
 	}
 
 	/**
@@ -78,6 +93,11 @@ public class LargestNumberSolver {
 	 *         the list.
 	 */
 	public static BigInteger sum(List<Integer[]> list) {
+		// TODO 1. create a variable to hold the sum
+		// TODO 3. iterate through the each Integer array in the list
+		// 3a. use findLargestNumber to calculate the largest value.
+		// 3b. add largest number to the total sum
+		// TODO 4. return the sum
 		return null;
 	}
 
@@ -104,8 +124,23 @@ public class LargestNumberSolver {
 	 */
 	public static List<Integer[]> readFile(String filename) {
 		File file = new File(filename);
+		// TODO 1. create a new List Object
+		// TODO 2. Iterate through each line in the file
+		// 2a. create a new Integer array
+		// 2b. add each number which is separated by a space
+		// 2c. at the end of the line, add the Integer array to the list
+		// TODO 3. return list
 		return null;
 
 	}
 
+	/**
+	 * Private helper functor class to implement a comparator to use for insertion
+	 * sort such that we can derive the largest possible number from an array.
+	 */
+	private class OrderForLargestNumber implements Comparator<Integer> {
+		public int compare(Integer o1, Integer o2) {
+			return 1;
+		}
+	}
 }
