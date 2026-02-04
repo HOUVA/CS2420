@@ -82,7 +82,7 @@ public class LargestNumberSolver {
 	 */
 	public static int findLargestInt(Integer[] arr) throws OutOfRangeException {
 		BigInteger result = findLargestNumber(arr);
-		int max = (int)(Math.pow(2, 31) - 1);
+		int max = (int) (Math.pow(2, 31) - 1);
 		if (BigInteger.valueOf(max).compareTo(result) < 0)
 			throw new OutOfRangeException("result is too large for int data type");
 		return Integer.parseInt(result.toString());
@@ -101,11 +101,11 @@ public class LargestNumberSolver {
 	 */
 	public static long findLargestLong(Integer[] arr) {
 		BigInteger result = findLargestNumber(arr);
-		long max = (long)(Math.pow(2, 63) - 1);
+		long max = (long) (Math.pow(2, 63) - 1);
 		if (BigInteger.valueOf(max).compareTo(result) < 0)
 			throw new OutOfRangeException("result is too large for int data type");
 		return Long.parseLong(result.toString());
-		
+
 	}
 
 	/**
@@ -132,9 +132,14 @@ public class LargestNumberSolver {
 	 * @param list of Integer arrays
 	 * @param k
 	 * @return Integer array
+	 * @throws IllegalArgumentException if k is not a valid position in the list.
 	 */
-	public static Integer[] findKthLargest(List<Integer[]> list, int k) {
+	public static Integer[] findKthLargest(List<Integer[]> list, int k) throws IllegalArgumentException {
 		return null;
+		// TODO 1. check if k is within the bounds of the list. If not, throw
+		// IllegalArgumentException.
+		// TODO 2. create a copy of the list
+		// TODO 3. 
 
 	}
 
