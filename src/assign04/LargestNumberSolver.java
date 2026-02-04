@@ -1,10 +1,13 @@
 package assign04;
 
 import java.util.List;
+import java.util.Scanner;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.lang.StringBuilder;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 /**
  * This class determines the largest number possible from the contents of a
@@ -23,22 +26,21 @@ public class LargestNumberSolver {
 	 * @param cmp - Comparator object to determine the order of sorting.
 	 */
 	public static <T> void insertionSort(T[] arr, Comparator<? super T> cmp) {
-		// TODO 1. iterate through the array, start at index 1 instead of 0 since the
-		// first
-		// item
-		// is sorted.
 
-		// TODO 2. store the value of the element at the index of the array to a
-		// temporary
-		// variable.
+		for (int i = 1; i < arr.length; i++) {
+			T temp = arr[i];
 
-		// TODO 3. iterate backwards through the sorted portion of the array
-		// stop iterating when we reach the first position of the array, or we reach a
-		// value that should come before our element.
-		// 3a. start at the index which is one less than the index of the acquired
-		// element.
-		// 3b. set the value at the index of the acquired element to the element at the
-		// new index.
+			int sortedIndex = i - 1;
+			int numIterations = 0;
+			while (sortedIndex >= 0 && cmp.compare(temp, arr[sortedIndex]) > 0) {
+
+				arr[i - numIterations] = arr[sortedIndex];
+				arr[sortedIndex] = temp;
+				sortedIndex--;
+				numIterations++;
+			}
+
+		}
 	}
 
 	/**
@@ -51,7 +53,20 @@ public class LargestNumberSolver {
 	 *         largest number.
 	 */
 	public static BigInteger findLargestNumber(Integer[] arr) {
-		return null;
+
+		if (arr.length > 0) {
+			insertionSort(arr, new OrderForLargestNumber());
+
+			StringBuilder largestNumberString = new StringBuilder();
+			for (Integer number : arr) {
+				largestNumberString.append(number);
+			}
+
+			return new BigInteger(largestNumberString.toString());
+		} else {
+
+			return new BigInteger("0");
+		}
 
 	}
 
@@ -66,7 +81,11 @@ public class LargestNumberSolver {
 	 *                             is too large for the int data type.
 	 */
 	public static int findLargestInt(Integer[] arr) throws OutOfRangeException {
-		return 0;
+		BigInteger result = findLargestNumber(arr);
+		int max = (int)(Math.pow(2, 31) - 1);
+		if (BigInteger.valueOf(max).compareTo(result) < 0)
+			throw new OutOfRangeException("result is too large for int data type");
+		return Integer.parseInt(result.toString());
 	}
 
 	/**
@@ -81,7 +100,12 @@ public class LargestNumberSolver {
 	 *                             is too large for the long data type.
 	 */
 	public static long findLargestLong(Integer[] arr) {
-		return 0;
+		BigInteger result = findLargestNumber(arr);
+		long max = (long)(Math.pow(2, 63) - 1);
+		if (BigInteger.valueOf(max).compareTo(result) < 0)
+			throw new OutOfRangeException("result is too large for int data type");
+		return Long.parseLong(result.toString());
+		
 	}
 
 	/**
@@ -124,13 +148,32 @@ public class LargestNumberSolver {
 	 */
 	public static List<Integer[]> readFile(String filename) {
 		File file = new File(filename);
-		// TODO 1. create a new List Object
-		// TODO 2. Iterate through each line in the file
-		// 2a. create a new Integer array
-		// 2b. add each number which is separated by a space
-		// 2c. at the end of the line, add the Integer array to the list
-		// TODO 3. return list
-		return null;
+		Scanner inputScanner = null;
+		List<Integer[]> numbersList = new ArrayList<Integer[]>();
+
+		try {
+			inputScanner = new Scanner(file);
+
+			while (inputScanner.hasNextLine()) {
+				String numberLine = inputScanner.nextLine();
+				Scanner lineScanner = new Scanner(numberLine);
+				ArrayList<Integer> numberArrayList = new ArrayList<Integer>();
+
+				while (lineScanner.hasNextInt()) {
+					numberArrayList.add(lineScanner.nextInt());
+				}
+
+				Integer[] integerArray = new Integer[numberArrayList.size()];
+				numbersList.add(numberArrayList.toArray(integerArray));
+				lineScanner.close();
+
+			}
+			inputScanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Invalid file name, review and try again.");
+		}
+
+		return numbersList;
 
 	}
 
@@ -138,9 +181,24 @@ public class LargestNumberSolver {
 	 * Private helper functor class to implement a comparator to use for insertion
 	 * sort such that we can derive the largest possible number from an array.
 	 */
-	private class OrderForLargestNumber implements Comparator<Integer> {
+	private static class OrderForLargestNumber implements Comparator<Integer> {
 		public int compare(Integer o1, Integer o2) {
-			return 1;
+			StringBuilder firstCombinedNum = new StringBuilder();
+			StringBuilder secondCombinedNum = new StringBuilder();
+
+			firstCombinedNum.append(o1);
+			firstCombinedNum.append(o2);
+			secondCombinedNum.append(o2);
+			secondCombinedNum.append(o1);
+
+//			if (Integer.parseInt(firstCombinedNum.toString()) < Integer.parseInt(secondCombinedNum.toString()))
+//				return 1;
+//			else if (Integer.parseInt(firstCombinedNum.toString()) > Integer.parseInt(secondCombinedNum.toString()))
+//				return -1;
+//			else 
+//				return 0;
+
+			return Integer.parseInt(firstCombinedNum.toString()) - Integer.parseInt(secondCombinedNum.toString());
 		}
 	}
 }
