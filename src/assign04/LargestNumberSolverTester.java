@@ -40,9 +40,14 @@ class LargestNumberSolverTester {
 	// Test cases for
 	// insertionSort---------------------------------------------------
 	@Test
-	void testInsertionSortLargestToSmallest() {
+	public void testInsertionSortLargestToSmallest() {
 		LargestNumberSolver.insertionSort(integerArray, (int1, int2) -> int1 - int2);
 		assertEquals(79, integerArray[0]);
+	}
+	
+	public void testInsertionSorySmallestToLargest() {
+		Integer[] testArray = {3, 5, 4, 2, 1};
+		LargestNumberSolver.insertionSort(testArray, (int1, int2) -> int2 - int1);
 	}
 
 	// Test cases for
@@ -115,6 +120,9 @@ class LargestNumberSolverTester {
 	public void testKthLargestNumber() {
 		assertEquals(kthLargestAndSumTestList.get(0), LargestNumberSolver.findKthLargest(kthLargestAndSumTestList, 0));
 		assertEquals(kthLargestAndSumTestList.get(1), LargestNumberSolver.findKthLargest(kthLargestAndSumTestList, 1));
+	}
+	
+	public void testKthLargestNumberKOutOfBounds() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			LargestNumberSolver.findKthLargest(kthLargestAndSumTestList, 2);
 		});
