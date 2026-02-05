@@ -3,6 +3,7 @@ package assign04;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.math.BigInteger;
 
@@ -40,8 +41,14 @@ class LargestNumberSolverTester {
 	// Test cases for
 	// insertionSort---------------------------------------------------
 	@Test
+	public void testInsertionSortNaturalOrdering() {
+		Integer[] testArray = {3, 5, 4, 2, 1};
+		LargestNumberSolver.insertionSort(testArray, Comparator.<Integer>naturalOrder());
+		assertEquals(5, testArray[testArray.length - 1]);
+	}
+	@Test
 	public void testInsertionSortLargestToSmallest() {
-		LargestNumberSolver.insertionSort(integerArray, (int1, int2) -> int1 - int2);
+		LargestNumberSolver.insertionSort(integerArray, (int1, int2) -> int2 - int1);
 		assertEquals(79, integerArray[0]);
 	}
 	

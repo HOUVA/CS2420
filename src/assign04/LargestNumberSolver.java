@@ -32,7 +32,7 @@ public class LargestNumberSolver {
 
 			int sortedIndex = i - 1;
 			int numIterations = 0;
-			while (sortedIndex >= 0 && cmp.compare(temp, arr[sortedIndex]) > 0) {
+			while (sortedIndex >= 0 && cmp.compare(temp, arr[sortedIndex]) < 0) {
 
 				arr[i - numIterations] = arr[sortedIndex];
 				arr[sortedIndex] = temp;
@@ -198,7 +198,7 @@ public class LargestNumberSolver {
 			secondCombinedNum.append(o2);
 			secondCombinedNum.append(o1);
 
-			return Integer.parseInt(firstCombinedNum.toString()) - Integer.parseInt(secondCombinedNum.toString());
+			return Integer.parseInt(secondCombinedNum.toString()) - Integer.parseInt(firstCombinedNum.toString());
 		}
 	}
 
@@ -213,7 +213,7 @@ public class LargestNumberSolver {
 			BigInteger Bo1 = LargestNumberSolver.findLargestNumber(o1);
 			BigInteger Bo2 = LargestNumberSolver.findLargestNumber(o2);
 
-			return Integer.parseInt(Bo1.toString()) - Integer.parseInt(Bo2.toString());
+			return Integer.parseInt(Bo2.toString())- Integer.parseInt(Bo1.toString());
 		}
 	}
 }
