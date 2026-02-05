@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
  * given integer array
  * 
  * @author Matthew Suggars and Barrett Carpenter
- * @version 02-02-26
+ * @version 02-04-26
  */
 public class LargestNumberSolver {
 	/**
@@ -55,10 +55,11 @@ public class LargestNumberSolver {
 	public static BigInteger findLargestNumber(Integer[] arr) {
 
 		if (arr.length > 0) {
-			insertionSort(arr, new OrderForLargestNumber());
+			Integer[] copyArr = arr.clone();
+			insertionSort(copyArr, new OrderForLargestNumber());
 
 			StringBuilder largestNumberString = new StringBuilder();
-			for (Integer number : arr) {
+			for (Integer number : copyArr) {
 				largestNumberString.append(number);
 			}
 
@@ -117,12 +118,12 @@ public class LargestNumberSolver {
 	 *         the list.
 	 */
 	public static BigInteger sum(List<Integer[]> list) {
-		// TODO 1. create a variable to hold the sum
-		// TODO 3. iterate through the each Integer array in the list
-		// 3a. use findLargestNumber to calculate the largest value.
-		// 3b. add largest number to the total sum
-		// TODO 4. return the sum
-		return null;
+		BigInteger sum = new BigInteger("0");
+
+		for (int i = 0; i < list.size(); i++) {
+			sum = sum.add(findLargestNumber(list.get(i)));
+		}
+		return sum;
 	}
 
 	/**
@@ -135,13 +136,13 @@ public class LargestNumberSolver {
 	 * @throws IllegalArgumentException if k is not a valid position in the list.
 	 */
 	public static Integer[] findKthLargest(List<Integer[]> list, int k) throws IllegalArgumentException {
-		return null;
-		// TODO 1. check if k is within the bounds of the list. If not, throw
-		// IllegalArgumentException.
-		// TODO 2. create a copy of the list
-		// TODO 3. iterate through list, and find the largest number for each Integer array.
-		// TODO 4.
+		if (k >= list.size())
+			throw new IllegalArgumentException("K out of bounds for List. Recheck list and try again");
 
+		Integer[][] copyList = list.toArray(new Integer[list.size()][]);
+		insertionSort(copyList, new OrderForKthLargestNumber());
+
+		return copyList[k];
 	}
 
 	/**
@@ -176,7 +177,7 @@ public class LargestNumberSolver {
 			}
 			inputScanner.close();
 		} catch (FileNotFoundException e) {
-			System.out.println("Invalid file name, review and try again.");
+			return numbersList;
 		}
 
 		return numbersList;
@@ -197,14 +198,22 @@ public class LargestNumberSolver {
 			secondCombinedNum.append(o2);
 			secondCombinedNum.append(o1);
 
-//			if (Integer.parseInt(firstCombinedNum.toString()) < Integer.parseInt(secondCombinedNum.toString()))
-//				return 1;
-//			else if (Integer.parseInt(firstCombinedNum.toString()) > Integer.parseInt(secondCombinedNum.toString()))
-//				return -1;
-//			else 
-//				return 0;
-
 			return Integer.parseInt(firstCombinedNum.toString()) - Integer.parseInt(secondCombinedNum.toString());
+		}
+	}
+
+	/**
+	 * Private helper functor class to implement a comparator to use for insertion
+	 * sort such that we can sort the list by the array's largest number from
+	 * biggest to smallest.
+	 */
+	private static class OrderForKthLargestNumber implements Comparator<Integer[]> {
+		public int compare(Integer[] o1, Integer[] o2) {
+
+			BigInteger Bo1 = LargestNumberSolver.findLargestNumber(o1);
+			BigInteger Bo2 = LargestNumberSolver.findLargestNumber(o2);
+
+			return Integer.parseInt(Bo1.toString()) - Integer.parseInt(Bo2.toString());
 		}
 	}
 }
