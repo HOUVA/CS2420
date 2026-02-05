@@ -36,10 +36,11 @@ public class LargestNumberSolver {
 			while (sortedIndex >= 0 && cmp.compare(temp, arr[sortedIndex]) < 0) {
 
 				arr[i - numIterations] = arr[sortedIndex];
-				arr[sortedIndex] = temp;
 				sortedIndex--;
 				numIterations++;
 			}
+			
+			arr[sortedIndex + 1] = temp;
 
 		}
 	}

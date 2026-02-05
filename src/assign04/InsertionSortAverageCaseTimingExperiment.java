@@ -1,8 +1,7 @@
-package assign03;
+package assign04;
 
 import java.util.Comparator;
-import assign04.InsertionSortWorstCaseTimingExperiment;
-import assign04.LargestNumberSolver;
+
 import timing.ArrayGenerator;
 import timing.TimingExperiment;
 
@@ -14,11 +13,12 @@ public class InsertionSortAverageCaseTimingExperiment extends TimingExperiment{
 	private static int problemSizeStep = 10;
 	private static int experimentIterationCount = 50;
 
-	private Integer[] experimentArray;
+	protected Integer[] array;
 
 	public static void main(String[] args) {
 		TimingExperiment timingExperiment = new InsertionSortWorstCaseTimingExperiment();
 
+		System.out.println("Average Case");
 		System.out.println("\n---Computing timing results---\n");
 		timingExperiment.printResults();
 	}
@@ -29,13 +29,13 @@ public class InsertionSortAverageCaseTimingExperiment extends TimingExperiment{
 
 	@Override
 	protected void setupExperiment(int problemSize) {
-		experimentArray = ArrayGenerator.generatePermutedArray(problemSize);
+		array = ArrayGenerator.generatePermutedArray(problemSize);
 
 	}
 
 	@Override
 	protected void runComputation() {
-		LargestNumberSolver.insertionSort(experimentArray, Comparator.<Integer>naturalOrder());
+		LargestNumberSolver.insertionSort(array, Comparator.<Integer>naturalOrder());
 
 	}
 

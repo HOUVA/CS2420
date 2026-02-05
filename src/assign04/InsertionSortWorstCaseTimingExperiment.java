@@ -21,11 +21,12 @@ public class InsertionSortWorstCaseTimingExperiment extends TimingExperiment {
 	private static int problemSizeStep = 10;
 	private static int experimentIterationCount = 50;
 
-	private Integer[] experimentArray;
+	protected Integer[] array;
 
 	public static void main(String[] args) {
 		TimingExperiment timingExperiment = new InsertionSortWorstCaseTimingExperiment();
-
+		
+		System.out.println("Worst Case");
 		System.out.println("\n---Computing timing results---\n");
 		timingExperiment.printResults();
 	}
@@ -36,13 +37,13 @@ public class InsertionSortWorstCaseTimingExperiment extends TimingExperiment {
 
 	@Override
 	protected void setupExperiment(int problemSize) {
-		experimentArray = ArrayGenerator.generateDescendingArray(problemSize);
+		array = ArrayGenerator.generateDescendingArray(problemSize);
 
 	}
 
 	@Override
 	protected void runComputation() {
-		LargestNumberSolver.insertionSort(experimentArray, Comparator.<Integer>naturalOrder());
+		LargestNumberSolver.insertionSort(array, Comparator.<Integer>naturalOrder());
 
 	}
 
