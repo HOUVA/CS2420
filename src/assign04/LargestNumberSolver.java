@@ -32,12 +32,10 @@ public class LargestNumberSolver {
 			T temp = arr[i];
 
 			int sortedIndex = i - 1;
-			int numIterations = 0;
 			while (sortedIndex >= 0 && cmp.compare(temp, arr[sortedIndex]) < 0) {
 
-				arr[i - numIterations] = arr[sortedIndex];
+				arr[sortedIndex + 1] = arr[sortedIndex];
 				sortedIndex--;
-				numIterations++;
 			}
 			
 			arr[sortedIndex + 1] = temp;
