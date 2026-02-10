@@ -6,7 +6,7 @@ public class MergeSorter implements Sorter {
 
 	public MergeSorter(int threshold) throws IllegalArgumentException {
 		// TODO The parameter indicates the sublist size at which the sorting must
-		// switch over to insertion sort.
+		// switch over to insertion sort.x
 		if (threshold <= 0)
 			throw new IllegalArgumentException();
 
