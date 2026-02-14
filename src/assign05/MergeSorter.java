@@ -20,5 +20,9 @@ public class MergeSorter implements Sorter {
 		// set, then the size of the list should be used as the threshold instead.
 
 	}
+	
+	private void mergeSortArray() {
+		
+	}
 
 }

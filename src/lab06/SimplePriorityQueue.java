@@ -1,7 +1,8 @@
-package assign03;
+package lab06;
 
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -11,7 +12,7 @@ import java.util.NoSuchElementException;
  * @author Barrett Carpenter and Matthew Suggars
  * @version January 28, 2026.
  */
-public class SimplePriorityQueue<E> implements PriorityQueue<E> {
+public class SimplePriorityQueue<E> implements PriorityQueue<E>, Iterable<E> {
 	private E[] array;
 	private int elementCount;
 	private Comparator<? super E> cmp;
@@ -68,8 +69,8 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 	 * @param coll - the collection of elements to be checked for
 	 * @return true if the queue contains all of the elements from coll, otherwise
 	 *         returns false.
-	 *         
-	 * O(M * LogN) time complexity
+	 * 
+	 *         O(M * LogN) time complexity
 	 */
 	@Override
 	public boolean containsAll(Collection<? extends E> coll) {
@@ -90,7 +91,7 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 	 * @return the maximum element
 	 * @throws NoSuchElementException if the priority queue is empty.
 	 * 
-	 * O(1) time complexity
+	 *                                O(1) time complexity
 	 */
 	@Override
 	public E deleteMax() throws NoSuchElementException {
@@ -241,6 +242,53 @@ public class SimplePriorityQueue<E> implements PriorityQueue<E> {
 			return foundValue;
 		else
 			return (start + 1) * -1;
+
+	}
+
+	@Override
+	public Iterator<E> iterator() {
+		return new SimplePriorityQueueIterator();
+	}
+
+	public class SimplePriorityQueueIterator implements Iterator<E> {
+		private int currentIndex;
+		private boolean nextCalled;
+
+		public SimplePriorityQueueIterator() {
+			currentIndex = 0;
+			nextCalled = false;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return currentIndex < elementCount;
+		}
+
+		@Override
+		public E next() {
+			if (!hasNext())
+				throw new NoSuchElementException();
+
+			currentIndex++;
+			nextCalled = true;
+
+			return array[currentIndex - 1];
+		}
+
+		@Override
+		public void remove() {
+			if (!nextCalled)
+				throw new IllegalStateException();
+
+			for (int i = currentIndex; i < elementCount; i++) {
+				array[i - 1] = array[i];
+			}
+
+			currentIndex--;
+			elementCount--;
+			nextCalled = false;
+
+		}
 
 	}
 
